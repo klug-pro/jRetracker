@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
 
     <name>jretracker</name>
-    <url>http://maven.apache.org</url>
+    <url>http://github.com/klug-pro/jRetracker</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
