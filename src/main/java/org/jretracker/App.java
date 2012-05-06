@@ -1,4 +1,4 @@
-package me.filippov.jretracker;
+package org.jretracker;
 
 /**
  * Main application class.
