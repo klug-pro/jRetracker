@@ -10,7 +10,7 @@ import static org.jboss.netty.channel.Channels.pipeline;
 /**
  * Retracker pipeline factory.
  */
-public class RetrackerServerPipelineFactory implements ChannelPipelineFactory {
+class RetrackerServerPipelineFactory implements ChannelPipelineFactory {
     @Override
     public ChannelPipeline getPipeline() throws Exception {
         ChannelPipeline pipeline = pipeline();

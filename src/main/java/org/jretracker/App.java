@@ -12,15 +12,15 @@ import java.util.logging.Logger;
  */
 public class App {
 
-    private int port;
+    private final int port;
     private final static CliHandler cliHandler = new CliHandler();
     private final static Logger logger = Logger.getLogger(App.class.getName());
 
-    public App(int port) {
+    private App(int port) {
         this.port = port;
     }
 
-    public void run() {
+    void run() {
         ServerBootstrap bootstrap = new ServerBootstrap(new NioServerSocketChannelFactory(
                 Executors.newCachedThreadPool(),
                 Executors.newCachedThreadPool()));

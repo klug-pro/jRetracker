@@ -13,7 +13,7 @@ public class CliHandler {
     private final static String HELP = "help";
     private final static int DEFAULT_PORT = 8080;
 
-    private Options options;
+    private final Options options;
     private CommandLine line;
 
     public CliHandler() {

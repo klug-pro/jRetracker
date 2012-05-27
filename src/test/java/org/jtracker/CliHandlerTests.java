@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 public class CliHandlerTests {
 
-    CliHandler cliHandler = null;
+    private CliHandler cliHandler = null;
 
     @Before
     public void SetUp(){
