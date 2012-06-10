@@ -20,12 +20,8 @@ public class AnnounceCommand implements ICommand {
                 ip = params.get("ip_from_request");
             }
 
-            PeerInfo peerInfo;
-            if (Tracker.hasPeer(ip)) {
-                peerInfo = Tracker.getPeer(ip);
-            } else {
-                peerInfo = new PeerInfo(ip);
-            }
+            PeerInfo peerInfo = new PeerInfo(ip);
+
             peerInfo.setPort(Integer.parseInt(params.get("port")));
             String infoHash = params.get("info_hash");
             if (Tracker.hasTorrent(infoHash)) {
@@ -38,7 +34,6 @@ public class AnnounceCommand implements ICommand {
                     torrentInfo.addPeer(peerInfo);
                 }
             }
-            Tracker.addPeer(peerInfo);
         } else {
             buffer.append(validator.getError());
         }

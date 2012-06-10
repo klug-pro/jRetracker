@@ -1,8 +1,10 @@
 package org.jretracker;
 
+import org.ini4j.Wini;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
+import java.io.File;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
@@ -13,7 +15,7 @@ import java.util.logging.Logger;
 public class App {
 
     private final int port;
-    private final static CliHandler cliHandler = new CliHandler();
+
     private final static Logger logger = Logger.getLogger(App.class.getName());
 
     private App(int port) {
@@ -33,12 +35,6 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        // Load config.
-        cliHandler.parse(args);
-        // Show help.
-        if (cliHandler.isHelp()) {
-            System.out.println("Usage: App [--port=Port number]");
-        }
-        new App(cliHandler.getPort()).run();
+        new App(new Wini(new File("settings.ini")).get("main", "port", int.class)).run();
     }
 }

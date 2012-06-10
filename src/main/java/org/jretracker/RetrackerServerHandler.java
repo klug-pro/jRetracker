@@ -6,7 +6,7 @@ import org.jboss.netty.handler.codec.http.DefaultHttpResponse;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.http.HttpResponse;
 import org.jboss.netty.util.CharsetUtil;
-import org.jretracker.utility.Codec;
+import org.jretracker.utility.UrlEncoder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +40,7 @@ class RetrackerServerHandler extends SimpleChannelUpstreamHandler {
                 if (parts.length  == 2) {
 
                     if (parts[0].equals("info_hash")) {
-                        params.put(parts[0], Codec.getHexStringFromUrl(parts[1]));
+                        params.put(parts[0], UrlEncoder.getHexStringFromUrl(parts[1]));
                     } else {
                         params.put(parts[0], parts[1]);
                     }

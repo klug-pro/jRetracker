@@ -13,18 +13,9 @@ import java.util.concurrent.ConcurrentHashMap;
 class Tracker {
 
     private static final ConcurrentHashMap<String, TorrentInfo> torrents = new ConcurrentHashMap<>();
-    private static final ConcurrentHashMap<String, PeerInfo> peers = new ConcurrentHashMap<>();
 
     public static TorrentInfo getTorrent(String infoHash) {
         return torrents.get(infoHash);
-    }
-
-    public static PeerInfo getPeer(String ip) {
-        return peers.get(ip);
-    }
-
-    public static void addPeer(PeerInfo peerInfo) {
-        peers.put(peerInfo.getIp(), peerInfo);
     }
 
     public static void addTorrent(TorrentInfo torrent) {
@@ -33,14 +24,6 @@ class Tracker {
 
     public static int getTorrentsCount() {
         return torrents.size();
-    }
-
-    public static int getPeersCount() {
-        return peers.size();
-    }
-
-    public static boolean hasPeer(String ip) {
-        return peers.containsKey(ip);
     }
 
     public static boolean hasTorrent(String infoHash) {

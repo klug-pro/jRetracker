@@ -15,12 +15,12 @@ public class StatCommand implements ICommand {
         StringBuilder buffer = new StringBuilder();
         buffer.append("Torrents: ");
         buffer.append(Tracker.getTorrentsCount());
-        buffer.append("<br />Peers: ");
-        buffer.append(Tracker.getPeersCount());
         buffer.append("<br />Hash list:<br /><ul>");
         for (TorrentInfo torrentInfo : Tracker.getTorrents()) {
             buffer.append("<li>");
             buffer.append(torrentInfo.getInfoHash());
+            buffer.append(" - peers count: ");
+            //buffer.append(torrentInfo.)
             buffer.append("</li>");
         }
         buffer.append("</ul>");
