@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Date: 5/26/12
  * Time: 1:28 AM
  */
-class Tracker {
+public class Tracker {
 
     private static final ConcurrentHashMap<String, TorrentInfo> torrents = new ConcurrentHashMap<>();
 
@@ -32,5 +32,9 @@ class Tracker {
 
     public static List<TorrentInfo> getTorrents() {
         return new ArrayList<>(torrents.values());
+    }
+
+    public static TorrentInfo processAnnounce(String infoHash, Action action, PeerInfo peer) {
+        return null;
     }
 }
