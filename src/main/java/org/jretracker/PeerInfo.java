@@ -7,6 +7,7 @@ public class PeerInfo {
 
     private final String ip;
     private int port;
+    private State state;
 
     public PeerInfo(String ip, int port) {
         this.ip = ip;
@@ -17,12 +18,12 @@ public class PeerInfo {
         return ip;
     }
 
-    public void setPort(int port) {
-        this.port = port;
+    public State getState() {
+        return state;
     }
 
-    public int getPort() {
-        return port;
+    public void setState(State state) {
+        this.state = state;
     }
 
     public byte[] getIpAsByteArray() {

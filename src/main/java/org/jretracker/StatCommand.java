@@ -10,13 +10,23 @@ import java.util.Map;
  */
 public class StatCommand implements ICommand {
 
+    private Tracker tracker;
+
+    public StatCommand() {
+        this.tracker = App.getTracker();
+    }
+
+    public StatCommand(Tracker tracker) {
+        this.tracker = tracker;
+    }
+
     @Override
     public String execute(Map<String,String> params) {
         StringBuilder buffer = new StringBuilder();
         buffer.append("Torrents: ");
-        buffer.append(Tracker.getTorrentsCount());
+        buffer.append(tracker.getTorrentsCount());
         buffer.append("<br />Hash list:<br /><ul>");
-        for (TorrentInfo torrentInfo : Tracker.getTorrents()) {
+        for (TorrentInfo torrentInfo : tracker.getTorrents()) {
             buffer.append("<li>");
             buffer.append(torrentInfo.getInfoHash());
             buffer.append(" - peers count: ");

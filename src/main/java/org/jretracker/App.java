@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class App {
 
     private final int port;
-
+    private final static Tracker tracker = new Tracker(ConfigurationManager.getInterval(), ConfigurationManager.getMinInterval(), ConfigurationManager.getCountCompleteForDownload());
     private final static Logger logger = Logger.getLogger(App.class.getName());
 
     private App(int port) {
@@ -35,6 +35,11 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        new App(new Wini(new File("settings.ini")).get("main", "port", int.class)).run();
+        new App(ConfigurationManager.getPort()).run();
     }
+
+    public static Tracker getTracker() {
+        return tracker;
+    }
+
 }

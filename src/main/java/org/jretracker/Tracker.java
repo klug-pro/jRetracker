@@ -12,29 +12,75 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Tracker {
 
-    private static final ConcurrentHashMap<String, TorrentInfo> torrents = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, TorrentInfo> torrents;
+    private int interval;
+    private int minInterval;
+    private int countCompleteForDownload;
 
-    public static TorrentInfo getTorrent(String infoHash) {
+    public Tracker(int interval, int minInterval, int countCompleteForDownload) {
+        torrents = new ConcurrentHashMap<>();
+        this.interval = interval;
+        this.minInterval = minInterval;
+        this.countCompleteForDownload = countCompleteForDownload;
+    }
+    public TorrentInfo getTorrent(String infoHash) {
         return torrents.get(infoHash);
     }
 
-    public static void addTorrent(TorrentInfo torrent) {
+    public void addTorrent(TorrentInfo torrent) {
         torrents.put(torrent.getInfoHash(), torrent);
     }
 
-    public static int getTorrentsCount() {
+    public int getTorrentsCount() {
         return torrents.size();
     }
 
-    public static boolean hasTorrent(String infoHash) {
+    public boolean hasTorrent(String infoHash) {
         return !torrents.containsKey(infoHash);
     }
 
-    public static List<TorrentInfo> getTorrents() {
+    public List<TorrentInfo> getTorrents() {
         return new ArrayList<>(torrents.values());
     }
 
-    public static TorrentInfo processAnnounce(String infoHash, Action action, PeerInfo peer) {
+    public TorrentInfo processAnnounce(String infoHash, Action action, PeerInfo peer) {
+        if (torrents.containsKey(infoHash)) {
+            TorrentInfo torrent = torrents.get(infoHash);
+            if (action == Action.STOP) {
+                if (torrent.containsPeer(peer)) {
+                    torrent.removePeer(peer);
+                }
+            }
+            if (action == Action.COMPLETE) {
+                if (torrent.containsPeer(peer)) {
+                    torrent.getPeer(peer.getIp()).setState(State.DOWNLOADED);
+                }
+                if (countCompleteForDownload <= getCountCompleteForDownload() && !torrent.isDownloaded()) {
+                    DownloadManager.startDownload(torrent);
+                    torrent.downloaded();
+                }
+            }
+        } else {
+            if (action == Action.START) {
+                TorrentInfo torrent = new TorrentInfo(infoHash);
+                peer.setState(State.DOWNLOADING);
+                torrent.addPeer(peer);
+                torrents.put(infoHash, torrent);
+            }
+        }
         return null;
     }
+
+    public int getMinInterval() {
+        return minInterval;
+    }
+
+    public int getInterval() {
+        return interval;
+    }
+
+    public int getCountCompleteForDownload() {
+        return countCompleteForDownload;
+    }
+
 }

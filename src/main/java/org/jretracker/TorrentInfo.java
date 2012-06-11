@@ -11,6 +11,7 @@ public class TorrentInfo {
 
     private final String infoHash;
     private final ConcurrentHashMap<String, PeerInfo> peers;
+    private boolean downloaded = false;
 
     public TorrentInfo(String infoHash) {
         this.infoHash = infoHash;
@@ -48,12 +49,57 @@ public class TorrentInfo {
 
         return bencode
                 .startMap()
-                .append("complete").append(0)
-                .append("incomplete").append(2)
-                .append("interval").append(1800)
-                .append("min interval").append(1800)
+                .append("complete").append(getCompletePeersCount())
+                .append("incomplete").append(getIncompletePeersCount())
+                .append("interval").append(App.getTracker().getInterval())
+                .append("min interval").append(App.getTracker().getMinInterval())
                 .append("peers").append(buffer)
                 .endMap()
                 .toString();
     }
+
+    public int getPeersCount() {
+        return peers.size();
+    }
+
+    public boolean containsPeer(PeerInfo peer) {
+        return peers.containsKey(peer.getIp());
+    }
+
+    public void removePeer(PeerInfo peer) {
+        peers.remove(peer.getIp());
+    }
+
+    public int getIncompletePeersCount() {
+        int result = 0;
+        for (PeerInfo peer : peers.values()) {
+            if (peer.getState() == State.DOWNLOADING) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    public int getCompletePeersCount() {
+        int result = 0;
+        for (PeerInfo peer : peers.values()) {
+            if (peer.getState() == State.DOWNLOADED) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    public PeerInfo getPeer(String ip) {
+        return peers.get(ip);
+    }
+
+    public boolean isDownloaded() {
+        return downloaded;
+    }
+
+    public void downloaded() {
+        downloaded = true;
+    }
+
 }
