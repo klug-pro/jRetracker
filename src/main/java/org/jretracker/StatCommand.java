@@ -29,8 +29,10 @@ public class StatCommand implements ICommand {
         for (TorrentInfo torrentInfo : tracker.getTorrents()) {
             buffer.append("<li>");
             buffer.append(torrentInfo.getInfoHash());
-            buffer.append(" - peers count: ");
-            //buffer.append(torrentInfo.)
+            buffer.append(" - incomplete peers count: ");
+            buffer.append(torrentInfo.getIncompletePeersCount());
+            buffer.append(", complete peers count: ");
+            buffer.append(torrentInfo.getCompletePeersCount());
             buffer.append("</li>");
         }
         buffer.append("</ul>");
