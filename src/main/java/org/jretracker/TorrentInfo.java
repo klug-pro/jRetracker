@@ -26,4 +26,8 @@ public class TorrentInfo {
     public boolean hasPeer(PeerInfo peerInfo) {
         return !peers.contains(peerInfo.getIp());
     }
+
+    public String getAnnounceString() {
+        return "";
+    }
 }

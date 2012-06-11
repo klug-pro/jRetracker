@@ -8,7 +8,7 @@ public class PeerInfo {
     private final String ip;
     private int port;
 
-    public PeerInfo(String ip) {
+    public PeerInfo(String ip, int i) {
         this.ip = ip;
     }
 
@@ -20,4 +20,7 @@ public class PeerInfo {
         this.port = port;
     }
 
+    public int getPort() {
+        return port;
+    }
 }

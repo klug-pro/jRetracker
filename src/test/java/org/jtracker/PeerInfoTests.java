@@ -14,6 +14,6 @@ import static org.junit.Assert.assertEquals;
 public class PeerInfoTests {
     @Test
     public void ShouldBeSetIpAfterCreation() {
-        assertEquals("127.0.0.1", new PeerInfo("127.0.0.1").getIp());
+        assertEquals("127.0.0.1", new PeerInfo("127.0.0.1", 57911).getIp());
     }
 }

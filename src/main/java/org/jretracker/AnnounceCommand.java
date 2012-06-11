@@ -20,7 +20,7 @@ public class AnnounceCommand implements ICommand {
                 ip = params.get("ip_from_request");
             }
 
-            PeerInfo peerInfo = new PeerInfo(ip);
+            PeerInfo peerInfo = new PeerInfo(ip, 57911);
 
             peerInfo.setPort(Integer.parseInt(params.get("port")));
             String infoHash = params.get("info_hash");
