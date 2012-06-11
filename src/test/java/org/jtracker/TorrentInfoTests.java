@@ -26,7 +26,7 @@ public class TorrentInfoTests {
         torrent.addPeer(new PeerInfo("178.159.50.2", 57911));
 
         byte[] bytes = {(byte) 0xB2, (byte) 0x9F, 0x31, 0x06, (byte) 0xE2, 0x37, (byte) 0xB2, (byte) 0x9F, 0x32, 0x02, (byte) 0xE2, 0x37};
-        assertEquals("d8:completei0e10:incompletei1e8:intervali1800e12:min intervali1800e5:peers12:" + new String(bytes) + "e", torrent.getAnnounceString());
+        assertEquals("d8:completei0e10:incompletei2e8:intervali1800e12:min intervali1800e5:peers12:" + new String(bytes) + "e", torrent.getAnnounceString());
     }
 
 }

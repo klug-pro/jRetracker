@@ -1,5 +1,7 @@
 package org.jretracker;
 
+import org.jretracker.bencode.Bencode;
+
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -28,6 +30,30 @@ public class TorrentInfo {
     }
 
     public String getAnnounceString() {
-        return "";
+        Bencode bencode = new Bencode();
+        byte[] buffer = new byte[peers.size() * 6];
+        int cnt = 0;
+        for(PeerInfo peer : peers.values()) {
+            byte[] peerIpBytes = peer.getIpAsByteArray();
+            byte[] peerPortBytes = peer.getPortAsByteArray();
+            for (byte b : peerIpBytes) {
+                buffer[cnt] = b;
+                cnt++;
+            }
+            for(byte b : peerPortBytes) {
+                buffer[cnt] = b;
+                cnt++;
+            }
+        }
+
+        return bencode
+                .startMap()
+                .append("complete").append(0)
+                .append("incomplete").append(2)
+                .append("interval").append(1800)
+                .append("min interval").append(1800)
+                .append("peers").append(buffer)
+                .endMap()
+                .toString();
     }
 }
