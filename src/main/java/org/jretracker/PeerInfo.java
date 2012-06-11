@@ -8,8 +8,9 @@ public class PeerInfo {
     private final String ip;
     private int port;
 
-    public PeerInfo(String ip, int i) {
+    public PeerInfo(String ip, int port) {
         this.ip = ip;
+        this.port = port;
     }
 
     public String getIp() {
@@ -29,7 +30,8 @@ public class PeerInfo {
         String[] parts = ip.split("\\.");
         if (parts.length == 4) {
             for (int i = 0; i < 4; i++) {
-                buffer[i] = Byte.valueOf(parts[i]);
+                int value = Integer.valueOf(parts[i]);
+                buffer[i] = (byte)value;
             }
         }
         return buffer;
@@ -37,8 +39,8 @@ public class PeerInfo {
 
     public byte[] getPortAsByteArray() {
         byte[] buffer = new byte[2];
-        buffer[0] = (byte) (port & 0xFF);
-        buffer[1] = (byte) ((port >> 8) & 0xFF);
+        buffer[0] = (byte) ((port >> 8) & 0xFF);
+        buffer[1] = (byte) (port & 0xFF);
         return buffer;
     }
 }
