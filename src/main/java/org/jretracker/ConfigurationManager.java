@@ -49,7 +49,23 @@ public class ConfigurationManager {
         try {
             return new Wini(new File("settings.ini")).get("main", "download_server", String.class);
         } catch (IOException ignored) {
-            return "127.0.0.1";
+            return "http://127.0.0.1:8112/json";
+        }
+    }
+
+    public static String getUsername() {
+        try {
+            return new Wini(new File("settings.ini")).get("main", "password", String.class);
+        } catch (IOException ignored) {
+            return "deluge";
+        }
+    }
+
+    public static String getPassword() {
+        try {
+            return new Wini(new File("settings.ini")).get("main", "password", String.class);
+        } catch (IOException ignored) {
+            return "deluge";
         }
     }
 
