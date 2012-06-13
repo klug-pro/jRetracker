@@ -24,11 +24,13 @@ public class DownloadManager {
 
     public static void addTorrentByUrl(String cookie, String token, String infoHash) {
         try {
-            String link = String.format(Locale.US, "http://%s/gui/?token=%s&action=add-url&s=%s%s",
+            String link = String.format(Locale.US, "http://%s/gui/?token=%s&action=add-url&s=%s%s%s%s",
                     ConfigurationManager.getDownloadServer(),
                     URLEncoder.encode(token, "ISO-8859-1"),
                     URLEncoder.encode("magnet:?xt=urn:btih:", "ISO-8859-1"),
-                    URLEncoder.encode(infoHash, "ISO-8859-1"));
+                    URLEncoder.encode(infoHash, "ISO-8859-1"),
+                    URLEncoder.encode("&tr=", "ISO-8859-1"),
+                    URLEncoder.encode(ConfigurationManager.getRetrackerAddress(), "ISO-8859-1"));
             System.out.println(link);
             try {
                 URL url = new URL(link);

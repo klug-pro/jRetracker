@@ -60,12 +60,14 @@ public class Tracker {
                     torrent.downloaded();
                 }
             }
+            return torrent;
         } else {
             if (action == Action.START) {
                 TorrentInfo torrent = new TorrentInfo(infoHash);
                 peer.setState(State.DOWNLOADING);
                 torrent.addPeer(peer);
                 torrents.put(infoHash, torrent);
+                return torrent;
             }
         }
         return null;

@@ -49,7 +49,7 @@ public class ConfigurationManager {
         try {
             return new Wini(new File("settings.ini")).get("main", "download_server", String.class);
         } catch (IOException ignored) {
-            return "http://127.0.0.1:8112/json";
+            return "127.0.0.1:26948";
         }
     }
 
@@ -57,7 +57,7 @@ public class ConfigurationManager {
         try {
             return new Wini(new File("settings.ini")).get("main", "password", String.class);
         } catch (IOException ignored) {
-            return "deluge";
+            return "admin";
         }
     }
 
@@ -65,8 +65,15 @@ public class ConfigurationManager {
         try {
             return new Wini(new File("settings.ini")).get("main", "password", String.class);
         } catch (IOException ignored) {
-            return "deluge";
+            return "admin";
         }
     }
 
+    public static String getRetrackerAddress() {
+        try {
+            return new Wini(new File("settings.ini")).get("main", "retracker_address", String.class);
+        } catch (IOException ignored) {
+            return "http://localhost:8080/announce";
+        }
+    }
 }

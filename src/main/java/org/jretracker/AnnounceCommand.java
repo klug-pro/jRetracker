@@ -45,7 +45,7 @@ public class AnnounceCommand implements ICommand {
                     action = Action.COMPLETE;
                     break;
             }
-            tracker.processAnnounce(infoHash, action, peerInfo);
+            buffer.append(tracker.processAnnounce(infoHash, action, peerInfo).getAnnounceString());
         } else {
             buffer.append(validator.getError());
         }
