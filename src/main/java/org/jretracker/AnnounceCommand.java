@@ -16,10 +16,6 @@ public class AnnounceCommand implements ICommand {
         this.tracker = App.getTracker();
     }
 
-    public AnnounceCommand(Tracker tracker) {
-        this.tracker = tracker;
-    }
-
     public String execute(Map<String, String> params) {
         StringBuilder buffer = new StringBuilder();
         AnnounceValidator validator = new AnnounceValidator(params);
@@ -38,7 +34,7 @@ public class AnnounceCommand implements ICommand {
                 case "started":
                     action = Action.START;
                     break;
-                case "stopped ":
+                case "stopped":
                     action = Action.STOP;
                     break;
                 case "completed":

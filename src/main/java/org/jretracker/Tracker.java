@@ -27,16 +27,8 @@ public class Tracker {
         return torrents.get(infoHash);
     }
 
-    public void addTorrent(TorrentInfo torrent) {
-        torrents.put(torrent.getInfoHash(), torrent);
-    }
-
     public int getTorrentsCount() {
         return torrents.size();
-    }
-
-    public boolean hasTorrent(String infoHash) {
-        return !torrents.containsKey(infoHash);
     }
 
     public List<TorrentInfo> getTorrents() {
@@ -58,6 +50,13 @@ public class Tracker {
                 if (countCompleteForDownload <= getCountCompleteForDownload() && !torrent.isDownloaded()) {
                     DownloadManager.startDownload(torrent);
                     torrent.downloaded();
+                }
+            }
+            if (action == Action.START) {
+                if (!torrent.containsPeer(peer)) {
+                    torrent.addPeer(peer);
+                } else {
+                    torrent.getPeer(peer.getIp()).setState(State.DOWNLOADING);
                 }
             }
             return torrent;
